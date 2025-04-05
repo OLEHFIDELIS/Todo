@@ -17,10 +17,21 @@ export default function TodoList(){
             return prevTodos.filter( (t) => t.id !== id )
         })
     }
+    const toggleTodo = (id)=> {
+        setTodos(prevTodo => {
+            return prevTodo.map(todo =>{
+                if(todo.id === id){
+                    return {...todo, completed: !todo.completed}
+                } else {
+                    return todo;
+                }
+            })
+        })
+    }
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
              {todos.map((todo) => (
-             <TodoItem todo={todo} key={todo.id} remove={removeTodo} />
+             <TodoItem todo={todo} key={todo.id} remove={removeTodo} toggle={()=> toggleTodo(todo.id)} />
              ))}
         </List>
     )
